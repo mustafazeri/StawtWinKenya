@@ -50,19 +50,6 @@ async function register() {
     } catch (error) {
         alert("Cannot connect to the server.");
     }
-}function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    if (username === "" || password === "") {
-        alert("Please enter your username and password.");
-        return;
-    }
-
-    playerName = username;
-
-    showMenu();
-}
 
 function showMenu() {
     document.body.innerHTML = `
