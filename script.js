@@ -51,63 +51,96 @@ async function register() {
         alert("Cannot connect to the server.");
     }
 
-function showMenu() {
-    document.body.innerHTML = `
-        <div class="container">
-            <h1>🎉 Welcome ${playerName}</h1>
+}async function login() {function 
+}showMenu() {
+    const username = 
+        document.getElementById("username").value; 
+        document.body.innerHTML = ` <div 
+        class="container">
+    const password = 
+            document.getElementById("password").value; 
+            <h1>🎉 Welcome 
+            ${playerName}</h1> 
             <h2>SmartWin Kenya</h2>
 
-            <h3>🪙 Coins: ${coins}</h3>
+            <h3>🪙 Coins: ${coins}</h3> if 
+    (username === "" || password === "") {
+        alert("Please enter your username 
+        and password."); <button 
+        onclick="playGame()">🎮 Play 
+        Quiz</button><br><br><button 
+        onclick="wallet()">💰 
+        Wallet</button><br><br> return;
+    }            <button 
+    }            onclick="leaderboard()">🏆 
+    }            Leaderboard</button><br><br><button 
+    }            onclick="spinWheel()">🎡 
+    }            Spin & Win</button>
 
-            <button onclick="playGame()">🎮 Play Quiz</button><br><br><button onclick="wallet()">💰 Wallet</button><br><br>
-
-            <button onclick="leaderboard()">🏆 Leaderboard</button><br><br><button onclick="spinWheel()">🎡 Spin & Win</button>
-
-            <button onclick="profile()">👤 Profile</button><button onclick="dailyBonus()">🎁 Daily Bonus</button><button onclick="spinWheel()">🎡 Spin & Win</button><br><br>
-        </div>
-    `;
-}function playGame() {
-    clearInterval(timer);
-    timeLeft = 15;
-
-    const q = questions[currentQuestion];
-    const progress = ((currentQuestion + 1) / questions.length) * 100;
-
+            <button onclick="profile()">👤 
+        Profile</button><button 
+        onclick="dailyBonus()">🎁 Daily 
+        Bonus</button><button 
+        onclick="spinWheel()">🎡 Spin & 
+        Win</button><br><br> </div>
+    try { `; const response = await 
+        fetch("https://smartwinkenyabackend.onrender.com/login", 
+        {}function playGame() {
+            method: "POST", 
+    clearInterval(timer); timeLeft = 15;
+            headers: { const q = 
+    questions[currentQuestion]; const 
+    progress = ((currentQuestion + 1) / 
+    questions.length) * 100;
+                "Content-Type": 
+    "application/json" 
     document.body.innerHTML = `
-        <div class="container">
-            <h1>🎮 Quiz Time!</h1>
+            }, <div class="container">
+            body: JSON.stringify({ <h1>🎮 
+            Quiz Time!</h1>
+                username: username, 
+            <p><strong>Question 
+            ${currentQuestion + 1} of 
+            ${questions.length}</strong></p>
+                password: password <h2>⏰ 
+            Time Left: <span 
+            id="timer">15</span>s</h2>
+            })
+        }); <h3>🪙 Coins: ${coins}</h3>
 
-            <p><strong>Question ${currentQuestion + 1} of ${questions.length}</strong></p>
+            <div class="progress"> <div 
+                class="progress-bar" 
+                style="width:${progress}%"></div>
+        const data = await 
+        response.json(); </div>
 
-            <h2>⏰ Time Left: <span id="timer">15</span>s</h2>
-
-            <h3>🪙 Coins: ${coins}</h3>
-
-            <div class="progress">
-                <div class="progress-bar" style="width:${progress}%"></div>
-            </div>
-
-            <p>${q.question}</p>
-
-            <button onclick="answer(0)">${q.options[0]}</button><br><br>
-
-            <button onclick="answer(1)">${q.options[1]}</button><br><br>
-
-            <button onclick="answer(2)">${q.options[2]}</button>
-        </div>
-    `;
-
-    timer = setInterval(function () {
+            <p>${q.question}</p> if 
+        (data.success) {
+            playerName = data.username; 
+            <button 
+            onclick="answer(0)">${q.options[0]}</button><br><br> 
+            alert("✅ Login successful!"); 
+            <button 
+            onclick="answer(1)">${q.options[1]}</button><br><br> 
+            showMenu(); <button 
+            onclick="answer(2)">${q.options[2]}</button>
+        } else { </div>
+            alert("❌ " + data.message); 
+            `;
+        }
+    timer = setInterval(function () { 
         timeLeft--;
 
-        document.getElementById("timer").textContent = timeLeft;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
+        document.getElementById("timer").textContent 
+        = timeLeft;
+    } catch (error) {
+        alert("❌ Cannot connect to the 
+            server."); if (timeLeft <= 0) 
+            { clearInterval(timer); 
             answer(-1);
-        }
+    }        }
     }, 1000);
-}function answer(choice) {
+}}function answer(choice) {
     clearInterval(timer);
 
     if (choice === questions[currentQuestion].answer) {
