@@ -1,4 +1,4 @@
-const coinValue = 0.5;const lastSpin = localStorage.getItem("lastSpin");let canSpin = true;let score = 0;
+// TEST123const coinValue = 0.5;const lastSpin = localStorage.getItem("lastSpin");let canSpin = true;let score = 0;
 let coins = 0;
 let playerName = "";
 let leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
@@ -24,7 +24,33 @@ const questions = [
   }
 ];
 
-function login() {
+async function register() {
+    const username = prompt("Choose a username:");
+    const password = prompt("Choose a password:");
+
+    if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+    }
+
+    try {
+        const response = await fetch("https://smartwinkenyabackend.onrender.com/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        });
+
+        const data = await response.json();
+        alert(data.message);
+    } catch (error) {
+        alert("Cannot connect to the server.");
+    }
+}function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
